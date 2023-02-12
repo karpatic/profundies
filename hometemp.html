@@ -1,58 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Profound Underwear Pre-Registration</title>
-	<style>
-		body {
-			text-align: center;
-		}
-		img {
-			display: block;
-			margin: 0 auto;
-		}
-		form {
-			display: block;
-			margin: 0 auto;
-			text-align: left;
-			width: 50%;
-		}
-		input[type="email"] {
-			width: 100%;
-			padding: 10px;
-			margin-bottom: 10px;
-			font-size: 16px;
-		}
-		input[type="submit"] {
-			width: 100%;
-			padding: 10px;
-			font-size: 16px;
-			background-color: #333;
-			color: #fff;
-			cursor: pointer;
-		}
-	</style>
-</head>
-<body>
-	<img src="flyer.png" alt="Profound Underwear Flyer">
-	<form>
-		<label for="email">Sign up for updates:</label>
-		<input type="email" id="email" name="email" required placeholder="Enter your email">
-		<input type="submit" value="Submit" onclick="submitForm()">
-	</form>
-	<script>
-		function submitForm() {
-			const email = document.querySelector('#email').value;
-			const xhr = new XMLHttpRequest();
-			xhr.open('POST', 'https://charleskarpati.com/api/profundies', true);
-			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-					alert('Your email has been added to our list. Thank you for your interest!');
-				}
-			};
-			xhr.send(`email=${email}`);
-		}
-	</script>
-</body>
+  <head>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+      }
+    
+      .flyer {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+      }
+      
+      form {
+        margin-top: 20px;
+        width: 80%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      input[type="email"] {
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid gray;
+      }
+      
+      input[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: navy;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img class="flyer" src="flyer.png" alt="ProFoundies Flyer">
+      <form>
+        <input type="email" name="email" placeholder="Your email address">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    
+    <script>
+      const form = document.querySelector('form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const response = await fetch('charleskarpati.com/api/profundies', {
+          method: 'POST',
+          body: new FormData(form),
+        });
+        const result = await response.text();
+        console.log(result);
+      });
+    </script>
+  </body>
 </html>
