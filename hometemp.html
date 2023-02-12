@@ -35,10 +35,24 @@
 </head>
 <body>
 	<img src="flyer.png" alt="Profound Underwear Flyer">
-	<form action="mailto:nfireman23@gmail.com" method="post" enctype="text/plain">
+	<form>
 		<label for="email">Sign up for updates:</label>
 		<input type="email" id="email" name="email" required placeholder="Enter your email">
-		<input type="submit" value="Submit">
+		<input type="submit" value="Submit" onclick="submitForm()">
 	</form>
+	<script>
+		function submitForm() {
+			const email = document.querySelector('#email').value;
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', 'https://charleskarpati.com/api/profundies', true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+					alert('Your email has been added to our list. Thank you for your interest!');
+				}
+			};
+			xhr.send(`email=${email}`);
+		}
+	</script>
 </body>
 </html>
